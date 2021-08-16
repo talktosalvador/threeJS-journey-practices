@@ -7,7 +7,7 @@ import * as dat from 'dat.gui'
  * Base
  */
 // Debug
-const gui = new dat.GUI()
+// const gui = new dat.GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -19,7 +19,7 @@ const scene = new THREE.Scene()
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
-const particleTexture = textureLoader.load('/textures/particles/10.png')
+const particleTexture = textureLoader.load('/textures/particles/1.png')
 
 /**
  * Material
@@ -28,7 +28,7 @@ const particlesMaterial = new THREE.PointsMaterial({
     size: 0.5,
     sizeAttenuation: true
 })
-particlesMaterial.color = new THREE.Color('red')
+// particlesMaterial.color = new THREE.Color('red')
 // particlesMaterial.map = particleTexture
 particlesMaterial.transparent = true
 particlesMaterial.alphaMap = particleTexture
