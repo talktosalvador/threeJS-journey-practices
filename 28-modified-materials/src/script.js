@@ -1,7 +1,7 @@
 import './style.css'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
 import * as dat from 'dat.gui'
 
 /**
@@ -26,12 +26,9 @@ const cubeTextureLoader = new THREE.CubeTextureLoader()
 /**
  * Update all materials
  */
-const updateAllMaterials = () =>
-{
-    scene.traverse((child) =>
-    {
-        if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
-        {
+const updateAllMaterials = () => {
+    scene.traverse((child) => {
+        if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
             child.material.envMapIntensity = 5
             child.material.needsUpdate = true
             child.castShadow = true
@@ -57,6 +54,14 @@ scene.background = environmentMap
 scene.environment = environmentMap
 
 /**
+ * CustomUniforms
+ * */
+const customUniforms = {
+    uTime: {value: 0},
+    speed: 0.5
+}
+
+/**
  * Material
  */
 
@@ -67,28 +72,105 @@ mapTexture.encoding = THREE.sRGBEncoding
 const normalTexture = textureLoader.load('/models/LeePerrySmith/normal.jpg')
 
 // Material
-const material = new THREE.MeshStandardMaterial( {
+const material = new THREE.MeshStandardMaterial({
     map: mapTexture,
     normalMap: normalTexture
 })
+
+material.onBeforeCompile = (shader) => {
+    // console.log(shader)
+    shader.uniforms.uTime = customUniforms.uTime
+    shader.vertexShader = shader.vertexShader.replace(
+        '#include <common>',
+        `
+            #include <common>
+            uniform float uTime;
+            mat2 get2dRotateMatrix(float _angle){
+                return mat2(cos(_angle), - sin(_angle), sin(_angle), cos(_angle));
+            }
+        `
+    )
+    shader.vertexShader = shader.vertexShader.replace(
+        '#include <beginnormal_vertex>',
+        `
+            #include <beginnormal_vertex>
+            float angle = (sin(position.y + uTime)) * 0.6;
+            mat2 rotateMatrix = get2dRotateMatrix(angle);
+            objectNormal.xz = rotateMatrix * objectNormal.xz;
+        `
+    )
+    shader.vertexShader = shader.vertexShader.replace(
+        '#include <begin_vertex>',
+        `
+            #include <begin_vertex>
+            transformed.xz = rotateMatrix * transformed.xz;
+        `
+    )
+}
+
+const depthMaterial = new THREE.MeshDepthMaterial({
+    depthPacking: THREE.RGBADepthPacking
+})
+
+depthMaterial.onBeforeCompile = (shader) => {
+    shader.uniforms.uTime = customUniforms.uTime
+    shader.vertexShader = shader.vertexShader.replace(
+        '#include <common>',
+        `
+            #include <common>
+            uniform float uTime;
+            mat2 get2dRotateMatrix(float _angle){
+                return mat2(cos(_angle), - sin(_angle), sin(_angle), cos(_angle));
+            }
+        `
+    )
+    shader.vertexShader = shader.vertexShader.replace(
+        '#include <beginnormal_vertex>',
+        `
+            #include <beginnormal_vertex>
+            float angle = (sin(position.y + uTime)) * 0.6;
+            mat2 rotateMatrix = get2dRotateMatrix(angle);
+            objectNormal.xz = rotateMatrix * objectNormal.xz;
+        `
+    )
+    shader.vertexShader = shader.vertexShader.replace(
+        '#include <begin_vertex>',
+        `
+            #include <begin_vertex>
+            transformed.xz = rotateMatrix * transformed.xz;
+        `
+    )
+}
 
 /**
  * Models
  */
 gltfLoader.load(
     '/models/LeePerrySmith/LeePerrySmith.glb',
-    (gltf) =>
-    {
+    (gltf) => {
         // Model
         const mesh = gltf.scene.children[0]
         mesh.rotation.y = Math.PI * 0.5
         mesh.material = material
+        mesh.customDepthMaterial = depthMaterial // Update the depth material
         scene.add(mesh)
 
         // Update materials
         updateAllMaterials()
     }
 )
+
+/**
+ * Plane
+ */
+const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(15, 15, 15),
+    new THREE.MeshStandardMaterial()
+)
+plane.rotation.y = Math.PI
+plane.position.y = -5
+plane.position.z = 5
+scene.add(plane)
 
 /**
  * Lights
@@ -98,7 +180,7 @@ directionalLight.castShadow = true
 directionalLight.shadow.mapSize.set(1024, 1024)
 directionalLight.shadow.camera.far = 15
 directionalLight.shadow.normalBias = 0.05
-directionalLight.position.set(0.25, 2, - 2.25)
+directionalLight.position.set(0.25, 2, -2.25)
 scene.add(directionalLight)
 
 /**
@@ -109,8 +191,7 @@ const sizes = {
     height: window.innerHeight
 }
 
-window.addEventListener('resize', () =>
-{
+window.addEventListener('resize', () => {
     // Update sizes
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
@@ -129,7 +210,7 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.set(4, 1, - 4)
+camera.position.set(4, 1, -4)
 scene.add(camera)
 
 // Controls
@@ -157,9 +238,11 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const clock = new THREE.Clock()
 
-const tick = () =>
-{
+const tick = () => {
     const elapsedTime = clock.getElapsedTime()
+
+    // Update material
+    customUniforms.uTime.value = elapsedTime
 
     // Update controls
     controls.update()
@@ -172,3 +255,4 @@ const tick = () =>
 }
 
 tick()
+
