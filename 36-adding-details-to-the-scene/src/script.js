@@ -31,6 +31,9 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
+// const axesHelper = new THREE.AxesHelper( 5 );
+// scene.add( axesHelper );
+
 /**
  * Loaders
  */
@@ -65,8 +68,8 @@ const poleLightMaterial = new THREE.MeshBasicMaterial({color: 0xffffe5})
 const portalLightMaterial = new THREE.ShaderMaterial({
     uniforms: {
         uTime: {value: 0},
-        uColorStart: { value: new THREE.Color(debugObject.portalColorStart) },
-        uColorEnd: { value: new THREE.Color(debugObject.portalColorEnd) },
+        uColorStart: {value: new THREE.Color(debugObject.portalColorStart)},
+        uColorEnd: {value: new THREE.Color(debugObject.portalColorEnd)},
     },
     vertexShader: portalVertexShader,
     fragmentShader: portalFragmentShader,
@@ -76,10 +79,13 @@ const portalLightMaterial = new THREE.ShaderMaterial({
 /**
  * Model
  */
+let model
 gltfLoader.load(
     'own/portal.glb',
     (gltf) => {
-        scene.add(gltf.scene)
+        model = gltf.scene
+        scene.add(model)
+        // model.rotation.y = Math.PI
 
         // Get each object
         const bakedMesh = gltf.scene.children.find((child) => child.name === 'baked')
@@ -163,15 +169,47 @@ scene.add(fireflies)
  * Camera
  */
 // Base camera
-const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = 4
+const camera = new THREE.PerspectiveCamera(
+    45,
+    sizes.width / sizes.height,
+    0.1,
+    100)
+camera.position.x = 0
 camera.position.y = 2
 camera.position.z = 4
 scene.add(camera)
 
 // Controls
 const controls = new OrbitControls(camera, canvas)
+
+// controls.autoRotate = true
+// controls.autoRotateSpeed = 10
 controls.enableDamping = true
+// controls.dampingFactor = .01
+// controls.enableKeys = true //older versions
+// controls.listenToKeyEvents(document.body)
+// controls.keys = {
+//     LEFT: "ArrowLeft", //left arrow
+//     UP: "ArrowUp", // up arrow
+//     RIGHT: "ArrowRight", // right arrow
+//     BOTTOM: "ArrowDown" // down arrow
+// }
+// controls.mouseButtons = {
+//     LEFT: THREE.MOUSE.ROTATE,
+//     MIDDLE: THREE.MOUSE.DOLLY,
+//     RIGHT: THREE.MOUSE.PAN
+// }
+// controls.touches = {
+//     ONE: THREE.TOUCH.ROTATE,
+//     TWO: THREE.TOUCH.DOLLY_PAN
+// }
+// controls.screenSpacePanning = true
+controls.minAzimuthAngle = 0 - 1.5
+controls.maxAzimuthAngle = Math.PI / 2
+controls.minPolarAngle = 0
+controls.maxPolarAngle = Math.PI - 1.6
+controls.maxDistance = 8
+controls.minDistance = 2
 
 /**
  * Renderer
@@ -218,7 +256,6 @@ gui
         renderer.setClearColor(debugObject.clearColor)
     })
 gui.add(firefliesMaterial.uniforms.uSize, 'value').min(0).max(500).step(1).name('firefliesSize')
-
 
 
 gui

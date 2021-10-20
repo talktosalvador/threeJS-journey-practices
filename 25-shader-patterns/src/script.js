@@ -1,5 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
+// import THREE from 'three/build/three.min'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 import testVertexShader from './shaders/test/vertex.glsl'
