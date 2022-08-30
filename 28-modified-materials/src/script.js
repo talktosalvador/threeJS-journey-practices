@@ -2,13 +2,6 @@ import './style.css'
 import * as THREE from 'three'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
-import * as dat from 'dat.gui'
-
-/**
- * Base
- */
-// Debug
-const gui = new dat.GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -16,16 +9,12 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
-/**
- * Loaders
- */
+// Loaders
 const textureLoader = new THREE.TextureLoader()
 const gltfLoader = new GLTFLoader()
 const cubeTextureLoader = new THREE.CubeTextureLoader()
 
-/**
- * Update all materials
- */
+// Update all materials
 const updateAllMaterials = () => {
     scene.traverse((child) => {
         if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
@@ -37,39 +26,31 @@ const updateAllMaterials = () => {
     })
 }
 
-/**
- * Environment map
- */
+// Environment map
 const environmentMap = cubeTextureLoader.load([
-    '/textures/environmentMaps/0/px.jpg',
-    '/textures/environmentMaps/0/nx.jpg',
-    '/textures/environmentMaps/0/py.jpg',
-    '/textures/environmentMaps/0/ny.jpg',
-    '/textures/environmentMaps/0/pz.jpg',
-    '/textures/environmentMaps/0/nz.jpg'
+    './textures/environmentMaps/0/px.jpg',
+    './textures/environmentMaps/0/nx.jpg',
+    './textures/environmentMaps/0/py.jpg',
+    './textures/environmentMaps/0/ny.jpg',
+    './textures/environmentMaps/0/pz.jpg',
+    './textures/environmentMaps/0/nz.jpg'
 ])
 environmentMap.encoding = THREE.sRGBEncoding
 
 scene.background = environmentMap
 scene.environment = environmentMap
 
-/**
- * CustomUniforms
- * */
+// CustomUniforms
 const customUniforms = {
     uTime: {value: 0},
     speed: 0.5
 }
 
-/**
- * Material
- */
-
 // Textures
-const mapTexture = textureLoader.load('/models/LeePerrySmith/color.jpg')
+const mapTexture = textureLoader.load('./models/LeePerrySmith/color.jpg')
 mapTexture.encoding = THREE.sRGBEncoding
 
-const normalTexture = textureLoader.load('/models/LeePerrySmith/normal.jpg')
+const normalTexture = textureLoader.load('./models/LeePerrySmith/normal.jpg')
 
 // Material
 const material = new THREE.MeshStandardMaterial({
@@ -78,10 +59,9 @@ const material = new THREE.MeshStandardMaterial({
 })
 
 material.onBeforeCompile = (shader) => {
-    // console.log(shader)
     shader.uniforms.uTime = customUniforms.uTime
     shader.vertexShader = shader.vertexShader.replace(
-        '#include <common>',
+        `#include <common>`,
         `
             #include <common>
             uniform float uTime;
@@ -91,7 +71,7 @@ material.onBeforeCompile = (shader) => {
         `
     )
     shader.vertexShader = shader.vertexShader.replace(
-        '#include <beginnormal_vertex>',
+        `#include <beginnormal_vertex>`,
         `
             #include <beginnormal_vertex>
             float angle = (sin(position.y + uTime)) * 0.6;
@@ -100,7 +80,7 @@ material.onBeforeCompile = (shader) => {
         `
     )
     shader.vertexShader = shader.vertexShader.replace(
-        '#include <begin_vertex>',
+        `#include <begin_vertex>`,
         `
             #include <begin_vertex>
             transformed.xz = rotateMatrix * transformed.xz;
@@ -115,7 +95,7 @@ const depthMaterial = new THREE.MeshDepthMaterial({
 depthMaterial.onBeforeCompile = (shader) => {
     shader.uniforms.uTime = customUniforms.uTime
     shader.vertexShader = shader.vertexShader.replace(
-        '#include <common>',
+        `#include <common>`,
         `
             #include <common>
             uniform float uTime;
@@ -125,7 +105,7 @@ depthMaterial.onBeforeCompile = (shader) => {
         `
     )
     shader.vertexShader = shader.vertexShader.replace(
-        '#include <beginnormal_vertex>',
+        `#include <beginnormal_vertex>`,
         `
             #include <beginnormal_vertex>
             float angle = (sin(position.y + uTime)) * 0.6;
@@ -134,7 +114,7 @@ depthMaterial.onBeforeCompile = (shader) => {
         `
     )
     shader.vertexShader = shader.vertexShader.replace(
-        '#include <begin_vertex>',
+        `#include <begin_vertex>`,
         `
             #include <begin_vertex>
             transformed.xz = rotateMatrix * transformed.xz;
@@ -142,11 +122,9 @@ depthMaterial.onBeforeCompile = (shader) => {
     )
 }
 
-/**
- * Models
- */
+// Models
 gltfLoader.load(
-    '/models/LeePerrySmith/LeePerrySmith.glb',
+    './models/LeePerrySmith/LeePerrySmith.glb',
     (gltf) => {
         // Model
         const mesh = gltf.scene.children[0]
@@ -155,14 +133,11 @@ gltfLoader.load(
         mesh.customDepthMaterial = depthMaterial // Update the depth material
         scene.add(mesh)
 
-        // Update materials
-        updateAllMaterials()
+        updateAllMaterials()// Update materials
     }
 )
 
-/**
- * Plane
- */
+// Plane
 const plane = new THREE.Mesh(
     new THREE.PlaneGeometry(15, 15, 15),
     new THREE.MeshStandardMaterial()
@@ -172,9 +147,7 @@ plane.position.y = -5
 plane.position.z = 5
 scene.add(plane)
 
-/**
- * Lights
- */
+// Lights
 const directionalLight = new THREE.DirectionalLight('#ffffff', 3)
 directionalLight.castShadow = true
 directionalLight.shadow.mapSize.set(1024, 1024)
@@ -183,9 +156,7 @@ directionalLight.shadow.normalBias = 0.05
 directionalLight.position.set(0.25, 2, -2.25)
 scene.add(directionalLight)
 
-/**
- * Sizes
- */
+// Sizes
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
@@ -205,9 +176,7 @@ window.addEventListener('resize', () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
-/**
- * Camera
- */
+// Camera
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.set(4, 1, -4)
@@ -217,9 +186,7 @@ scene.add(camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 
-/**
- * Renderer
- */
+// Renderer
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true
@@ -233,25 +200,18 @@ renderer.toneMappingExposure = 1
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-/**
- * Animate
- */
+// Animate
 const clock = new THREE.Clock()
 
 const tick = () => {
-    const elapsedTime = clock.getElapsedTime()
 
-    // Update material
-    customUniforms.uTime.value = elapsedTime
+    customUniforms.uTime.value = clock.getElapsedTime()// Update material
 
-    // Update controls
-    controls.update()
+    controls.update()// Update controls
 
-    // Render
-    renderer.render(scene, camera)
+    renderer.render(scene, camera)// Render
 
-    // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
+    window.requestAnimationFrame(tick)// Call tick again on the next frame
 }
 
 tick()
