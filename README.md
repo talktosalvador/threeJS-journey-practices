@@ -13,3 +13,4 @@ Resolved practices of the course:
 | 26     | [raging-sea](https://salvasvip.github.io/threeJS-journey-practices/26-raging-sea/dist/index.html) |
 | 27     | [animated-galaxy](https://salvasvip.github.io/threeJS-journey-practices/27-animated-galaxy/dist/index.html) |
 | 28     | [modified-materials](https://salvasvip.github.io/threeJS-journey-practices/28-modified-materials/dist/index.html) |
+| 29     | [post-processing](https://salvasvip.github.io/threeJS-journey-practices/29-post-processing/dist/index.html) |
