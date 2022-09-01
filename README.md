@@ -14,3 +14,4 @@ Resolved practices of the course:
 | 27     | [animated-galaxy](https://salvasvip.github.io/threeJS-journey-practices/27-animated-galaxy/dist/index.html) |
 | 28     | [modified-materials](https://salvasvip.github.io/threeJS-journey-practices/28-modified-materials/dist/index.html) |
 | 29     | [post-processing](https://salvasvip.github.io/threeJS-journey-practices/29-post-processing/dist/index.html) |
+| 30     | [performance-tips](https://salvasvip.github.io/threeJS-journey-practices/30-performance-tips/dist/index.html) |
