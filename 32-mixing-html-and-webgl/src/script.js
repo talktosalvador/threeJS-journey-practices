@@ -127,12 +127,12 @@ const updateAllMaterials = () => {
  * Environment map
  */
 const environmentMap = cubeTextureLoader.load([
-    '/textures/environmentMaps/0/px.png',
-    '/textures/environmentMaps/0/nx.png',
-    '/textures/environmentMaps/0/py.png',
-    '/textures/environmentMaps/0/ny.png',
-    '/textures/environmentMaps/0/pz.png',
-    '/textures/environmentMaps/0/nz.png'
+    './textures/environmentMaps/0/px.png',
+    './textures/environmentMaps/0/nx.png',
+    './textures/environmentMaps/0/py.png',
+    './textures/environmentMaps/0/ny.png',
+    './textures/environmentMaps/0/pz.png',
+    './textures/environmentMaps/0/nz.png'
 ])
 
 environmentMap.encoding = THREE.sRGBEncoding
@@ -146,7 +146,7 @@ debugObject.envMapIntensity = 5
  * Models
  */
 gltfLoader.load(
-    '/models/DamagedHelmet/glTF/DamagedHelmet.gltf',
+    './models/DamagedHelmet/glTF/DamagedHelmet.gltf',
     (gltf) => {
         gltf.scene.scale.set(2.5, 2.5, 2.5)
         gltf.scene.rotation.y = Math.PI * 0.5
@@ -304,7 +304,7 @@ if (renderer.getPixelRatio() === 1 && !renderer.capabilities.isWebGL2) {
 // DisplacementShader
 const displacementPass = new ShaderPass(DisplacementShader)
 displacementPass.material.uniforms.uTime.value = 0
-displacementPass.material.uniforms.uNormalMap.value = textureLoader.load('/textures/interfaceNormalMap.png')
+displacementPass.material.uniforms.uNormalMap.value = textureLoader.load('./textures/interfaceNormalMap.png')
 window.setTimeout(() => {
     effectComposer.addPass(displacementPass)
 }, 1000)

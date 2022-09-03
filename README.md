@@ -16,3 +16,4 @@ Resolved practices of the course:
 | 29     | [post-processing](https://salvasvip.github.io/threeJS-journey-practices/29-post-processing/dist/index.html) |
 | 30     | [performance-tips](https://salvasvip.github.io/threeJS-journey-practices/30-performance-tips/dist/index.html) |
 | 31     | [intro-and-loading-progress](https://salvasvip.github.io/threeJS-journey-practices/31-intro-and-loading-progress/dist/index.html) |
+| 32     | [mixing-html-and-webgl](https://salvasvip.github.io/threeJS-journey-practices/32-mixing-html-and-webgl/dist/index.html) |
