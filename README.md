@@ -17,3 +17,4 @@ Resolved practices of the course:
 | 30     | [performance-tips](https://salvasvip.github.io/threeJS-journey-practices/30-performance-tips/dist/index.html) |
 | 31     | [intro-and-loading-progress](https://salvasvip.github.io/threeJS-journey-practices/31-intro-and-loading-progress/dist/index.html) |
 | 32     | [mixing-html-and-webgl](https://salvasvip.github.io/threeJS-journey-practices/32-mixing-html-and-webgl/dist/index.html) |
+| 35     | [importing-and-optimizing-the-scene](https://salvasvip.github.io/threeJS-journey-practices/35-importing-and-optimizing-the-scene/dist/index.html) |
