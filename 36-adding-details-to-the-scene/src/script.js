@@ -42,7 +42,7 @@ const textureLoader = new THREE.TextureLoader()
 
 // Draco loader
 const dracoLoader = new DRACOLoader()
-dracoLoader.setDecoderPath('draco/')
+dracoLoader.setDecoderPath('./draco/')
 
 // GLTF loader
 const gltfLoader = new GLTFLoader()
@@ -51,7 +51,7 @@ gltfLoader.setDRACOLoader(dracoLoader)
 /**
  * Textures
  */
-const bakedTexture = textureLoader.load('own/baked.jpg')
+const bakedTexture = textureLoader.load('./own/baked.jpg')
 bakedTexture.flipY = false
 bakedTexture.encoding = THREE.sRGBEncoding
 
@@ -81,7 +81,7 @@ const portalLightMaterial = new THREE.ShaderMaterial({
  */
 let model
 gltfLoader.load(
-    'own/portal.glb',
+    './own/portal.glb',
     (gltf) => {
         model = gltf.scene
         scene.add(model)
