@@ -7,6 +7,7 @@ Resolved practices of the course:
 
 | Lesson | Project |
 |--------| ------ |
+| 03     | [Basic-scene](https://salvasvip.github.io/threeJS-journey-practices/03-Basic-scene/index.html) |
 | 14     | [lights](https://salvasvip.github.io/threeJS-journey-practices/14-lights/dist/index.html) |
 | 16     | [haunted-house](https://salvasvip.github.io/threeJS-journey-practices/16-haunted-house/dist/index.html) |
 | 25     | [shader-patterns](https://salvasvip.github.io/threeJS-journey-practices/25-shader-patterns/dist/index.html) |
