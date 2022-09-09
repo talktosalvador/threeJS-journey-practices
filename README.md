@@ -10,6 +10,7 @@ Resolved practices of the course:
 | 03     | [Basic-scene](https://talktosalvador.github.io/threeJS-journey-practices/03-Basic-scene/index.html)                                                    |
 | 04     | [webpack](https://talktosalvador.github.io/threeJS-journey-practices/04-webpack/dist/index.html)                                                       |
 | 05     | [transforms-objects](https://talktosalvador.github.io/threeJS-journey-practices/05-transforms-objects/dist/index.html)                                 |
+| 06     | [animations](https://talktosalvador.github.io/threeJS-journey-practices/06-animations/dist/index.html)                                                 |
 | 14     | [lights](https://talktosalvador.github.io/threeJS-journey-practices/14-lights/dist/index.html)                                                         |
 | 16     | [haunted-house](https://talktosalvador.github.io/threeJS-journey-practices/16-haunted-house/dist/index.html)                                           |
 | 25     | [shader-patterns](https://talktosalvador.github.io/threeJS-journey-practices/25-shader-patterns/dist/index.html)                                       |
