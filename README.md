@@ -1,4 +1,5 @@
 # @salvasvip
+
 ## _[three.js journey](https://threejs-journey.com/) practices_
 
 ## Content
@@ -15,6 +16,7 @@ Resolved practices of the course:
 | 08     | [fullscreen-resizing](https://talktosalvador.github.io/threeJS-journey-practices/08-fullscreen-resizing/dist/index.html)                               |
 | 09     | [geometries](https://talktosalvador.github.io/threeJS-journey-practices/09-geometries/dist/index.html)                                                 |
 | 10     | [debug-ui](https://talktosalvador.github.io/threeJS-journey-practices/10-debug-ui/dist/index.html)                                                     |
+| 11     | [textures](https://talktosalvador.github.io/threeJS-journey-practices/11-textures/dist/index.html)                                                     |
 | 14     | [lights](https://talktosalvador.github.io/threeJS-journey-practices/14-lights/dist/index.html)                                                         |
 | 16     | [haunted-house](https://talktosalvador.github.io/threeJS-journey-practices/16-haunted-house/dist/index.html)                                           |
 | 25     | [shader-patterns](https://talktosalvador.github.io/threeJS-journey-practices/25-shader-patterns/dist/index.html)                                       |
