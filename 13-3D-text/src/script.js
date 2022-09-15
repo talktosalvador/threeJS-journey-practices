@@ -20,7 +20,7 @@ const matcapTexture = textureLoader.load("./textures/matcaps/3.png");
  * */
 const fontLoader = new THREE.FontLoader();
 fontLoader.load("./fonts/helvetiker_regular.typeface.json", (font) => {
-  const textGeometry = new THREE.TextGeometry("slvdrvlc", {
+  const textGeometry = new THREE.TextGeometry("@talktosalvador", {
     font,
     size: 0.5,
     height: 0.2,
@@ -92,9 +92,8 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   100
 );
-camera.position.x = 1;
 camera.position.y = 1;
-camera.position.z = 2;
+camera.position.z = 3;
 scene.add(camera);
 
 /**
