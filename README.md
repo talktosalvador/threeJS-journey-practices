@@ -28,6 +28,7 @@ Resolved practices of the course:
 | 20     | [physics](https://talktosalvador.github.io/threeJS-journey-practices/20-physics/dist/index.html)                                                       |
 | 21     | [imported-models](https://talktosalvador.github.io/threeJS-journey-practices/21-imported-models/dist/index.html)                                       |
 | 22     | [custom-models-with-blender](https://talktosalvador.github.io/threeJS-journey-practices/22-custom-models-with-blender/dist/index.html)                 |
+| 23     | [realistic-render](https://talktosalvador.github.io/threeJS-journey-practices/23-realistic-render/dist/index.html)                                     |
 | 25     | [shader-patterns](https://talktosalvador.github.io/threeJS-journey-practices/25-shader-patterns/dist/index.html)                                       |
 | 26     | [raging-sea](https://talktosalvador.github.io/threeJS-journey-practices/26-raging-sea/dist/index.html)                                                 |
 | 27     | [animated-galaxy](https://talktosalvador.github.io/threeJS-journey-practices/27-animated-galaxy/dist/index.html)                                       |
