@@ -10,6 +10,7 @@
   "rules": {
     "no-console": "off",
     "no-undef": "warn",
-    "no-use-before-define": "warn"
+    "no-use-before-define": "warn",
+    "no-param-reassign": "warn"
   }
 }
